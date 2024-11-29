@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+black==24.2.0
+flake8==6.1.0
+cryptography
+python-decouple
+requests
+httpx
