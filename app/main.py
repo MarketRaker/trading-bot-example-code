@@ -1,28 +1,18 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel, Field
-import json
 import requests
-from decouple import config
-
-from cryptography.hazmat.primitives import serialization, hashes
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.backends import default_backend
-from cryptography.exceptions import InvalidSignature
-import base64
-
 from datetime import datetime
 from typing import Literal
 
-
+from app.routers import Binance_Routers, MarketRaker_Routers, ByBit_Routers
 
 
 # Initialize FastAPI app
 app = FastAPI()
+app.include_router(Binance_Routers.router, prefix="/binance", tags=["Binance"])  # check the useability of (binance.router, prefix="/binance", tags=["Binance"])
+app.include_router(MarketRaker_Routers.router)  # maby add a similar tag/ prefix same as Binance
+app.include_router(ByBit_Routers.router, prefix="/bybit", tags=["Bybit"])
 
-SIGNING_KEY = str(config("SIGNING_KEY"))
-APPLICATION_ID = str(config("APPLICATION_ID"))
-public_key_str = str(config("public_key_str"))
-public_key_str = public_key_str.replace("\\n","\n")
 
 ################################################################## Development--- REMOVE when going public
 class Webhook_Format(BaseModel):
@@ -120,74 +110,3 @@ def testNotification():
 
 ################################################################### End of Development Section
 
-
-
-############################## Validate the indicator that was send from the marketraker api
-def verify_signature(payload: json, signature: str, public_key_str: str) -> bool:
-    """
-    Verifies the signature of a payload.
-
-    Parameters:
-    - payload (json): The payload that was signed.
-    - signature (str): The base64 encoded signature to verify.
-    - public_key_str (str): The PEM formatted public key string.
-
-    Returns:
-    - bool: True if the signature is valid, False otherwise.
-    """
-    try:
-        payload_bytes: bytes = payload.encode("utf-8")
-        signature_bytes: bytes = base64.b64decode(signature.encode("utf-8"))
-
-        public_key = serialization.load_pem_public_key(
-            public_key_str.encode("utf-8"), backend=default_backend()
-        )
-
-        public_key.verify(
-            signature_bytes,
-            payload_bytes,
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH,
-            ),
-            hashes.SHA256(),
-        )
-        return True
-    except InvalidSignature:
-        return False
-    except Exception as e:
-        print(f"An error occurred during signature verification: {e}")
-        return False
-
-
-def decision_maker(Acceptable_Risk: int, Indicator_Risk: int) -> bool:
-    return True if Acceptable_Risk >= Indicator_Risk else False
-
-
-############################## Receive the indicator notifications from the MarketRaker API through the webhooks registered under your profile
-@app.post("/notification")
-async def webhook_endpoint(request: Request):
-    try:
-        # Parse the incoming JSON payload
-        payload: dict = await request.json()
-
-        # Process the payload (e.g., log it, validate it, or trigger other actions)
-        ############################################################################## e.g. validate payload signature
-        headers = request.headers
-        xSign = headers.get("x-signature")
-        is_valid: bool = verify_signature(payload, xSign, public_key_str)
-        output: str = (
-            "The signature is valid." if is_valid else "The signature is invalid."
-        )
-        print(output)
-
-        ############################################################################## e.g. decide If a purchase should be make
-        # Acceptable_Risk:int = 5
-        # decision_maker(Acceptable_Risk, payload['risk'])
-        # print(payload.get("risk"))
-        ###############################################################################
-
-        return
-    except Exception as e:
-        print(f"Error processing webhook: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
