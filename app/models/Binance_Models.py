@@ -79,6 +79,10 @@ class RecentTradesRequest(BaseModel):
 class ListenKeyRequest(BaseModel):
     listenKey: str
 
+# websocket
+class SymbolType(BaseModel):
+    symbol:str
+
 ### Useful Tools
 class OCOOrderRequest(BaseModel):
     symbol: str
