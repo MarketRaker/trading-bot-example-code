@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.crud.Binance_CRUD import *
-from app.models.Binance_Models import *
+from app.schemas.Binance_Schema import *
 import asyncio
 import websockets
 
@@ -8,8 +8,12 @@ import websockets
 router = APIRouter()
 stop_event = asyncio.Event()
 
+"""
+check file docstrings
+"""
 ####################################################### Account Management
 #######################################################
+
 
 ##### Get your account info
 @router.get("/account")
@@ -21,15 +25,17 @@ async def binance_account():
     """
     return await get_binance_account_info()
 
+
 ##### Check if you can trade on your account
-@router.get("/tradingStatus")
+@router.get("/tradingstatus")
 async def binance_trading_status():
     """
     Endpoint to retrieve the current trading status of the Binance API.
-        Input: 
+        Input:
             - None
     """
     return await get_binance_trading_status()
+
 
 ######################################################  End of Account Management
 ######################################################
@@ -37,8 +43,9 @@ async def binance_trading_status():
 ######################################################  Market Data
 ######################################################
 
+
 ##### Get the average price
-@router.get("/avgPrice")
+@router.get("/avgprice")
 async def binance_avg_price(request: AvgPriceRequest):
     """
     Endpoint to retrieve the average price of a symbol on Binance.
@@ -47,8 +54,9 @@ async def binance_avg_price(request: AvgPriceRequest):
     """
     return await get_binance_avg_price(request.symbol)
 
+
 ##### Get order book
-@router.get("/orderBook")
+@router.get("/orderbook")
 async def binance_order_book(request: OrderBookRequest):
     """
     Endpoint to retrieve order book depth data.
@@ -58,8 +66,9 @@ async def binance_order_book(request: OrderBookRequest):
     """
     return await get_binance_order_book(request.symbol, request.limit)
 
+
 ##### Get symbol price
-@router.get("/priceTicker")
+@router.get("/priceticker")
 async def binance_price_ticker(request: PriceTickerRequest):
     """
     Endpoint to retrieve the latest price of a symbol on Binance.
@@ -68,8 +77,9 @@ async def binance_price_ticker(request: PriceTickerRequest):
     """
     return await get_binance_price_ticker(request.symbol)
 
+
 ##### Get 24 hour price statistics
-@router.get("/priceChangeStats")
+@router.get("/pricechangestats")
 async def binance_24hr_price_change_stats(request: PriceChangeStatsRequest):
     """
     Endpoint to retrieve the 24-hour price change statistics for a symbol on Binance.
@@ -78,8 +88,9 @@ async def binance_24hr_price_change_stats(request: PriceChangeStatsRequest):
     """
     return await get_binance_24hr_price_change_stats(request.symbol)
 
+
 ##### Get Historic trades
-@router.get("/historicalTrades")
+@router.get("/historicaltrades")
 async def binance_historical_trades(request: HistoricalTradesRequest):
     """
     Endpoint to retrieve historical trades for a specific symbol from Binance.
@@ -88,7 +99,10 @@ async def binance_historical_trades(request: HistoricalTradesRequest):
             - limit (int): The maximum number of trades to retrieve.
             - fromId (Optional[int]): The trade ID to start from (optional, for pagination).
     """
-    return await get_binance_historical_trades(request.symbol, request.limit, request.fromId)
+    return await get_binance_historical_trades(
+        request.symbol, request.limit, request.fromId
+    )
+
 
 ######################################################  End of Market Data
 ######################################################
@@ -96,9 +110,10 @@ async def binance_historical_trades(request: HistoricalTradesRequest):
 ######################################################  Placing & Managing Orders
 ######################################################
 
+
 ##### Make Trade
 @router.post("/order")
-async def binance_Trade(order:OrderRequest):
+async def binance_Trade(order: OrderRequest):
     """
     Endpoint to place a trade order on Binance.
         Input:
@@ -106,11 +121,12 @@ async def binance_Trade(order:OrderRequest):
             - side (str): The side of the order ("BUY" or "SELL").
             - quantity (float): The quantity to buy/sell.
     """
-    return await Binance_place_order(order.symbol,order.side,order.quantity)
+    return await Binance_place_order(order.symbol, order.side, order.quantity)
+
 
 ##### Get all open orders by type
-@router.get("/allOpenOrders")
-async def binance_GetOpenOrders(all_OpenOrders:AllOrders):
+@router.get("/allopenorders")
+async def binance_GetOpenOrders(all_OpenOrders: AllOrders):
     """
     Endpoint to retrieve all open orders for a specific trading pair.
         Input:
@@ -118,8 +134,9 @@ async def binance_GetOpenOrders(all_OpenOrders:AllOrders):
     """
     return await Binance_get_open_orders(all_OpenOrders.symbol)
 
+
 ##### Get Order Detail by Id
-@router.get("/orderDetails")
+@router.get("/orderdetails")
 async def binance_order_details(request: OrderDetailsRequest):
     """
     Endpoint to retrieve details of a specific order by its ID or client order ID.
@@ -128,19 +145,27 @@ async def binance_order_details(request: OrderDetailsRequest):
             - orderId (Optional[int]): The Binance order ID.
             - clientOrderId (Optional[str]): The client order ID (optional).
     """
-    return await get_binance_order_details(request.symbol, request.orderId, request.clientOrderId)
+    return await get_binance_order_details(
+        request.symbol, request.orderId, request.clientOrderId
+    )
+
 
 ##### Cancel open order
-@router.delete("/cancelOrder") # only works if the order is still open. open orders can be found by using the binance_GetOpenOrders function
-async def cancel_order(cancel_Order:cancelOrder):
+@router.delete(
+    "/cancelorder"
+)  # only works if the order is still open. open orders can be found by using the binance_GetOpenOrders function
+async def cancel_order(cancel_Order: CancelOrder):
     """
     Endpoint to cancel an order on Binance Spot Testnet.
-        Input: 
+        Input:
             - symbol: Trading pair (e.g., BTCUSDT)
             - order_id: Binance order ID
             - orig_client_order_id: Client order ID
     """
-    return await Binance_cancel_order(cancel_Order.symbol, cancel_Order.orderId, cancel_Order.clientOrderId)
+    return await Binance_cancel_order(
+        cancel_Order.symbol, cancel_Order.orderId, cancel_Order.clientOrderId
+    )
+
 
 ######################################################  End of Placing & Managing Orders
 ######################################################
@@ -150,9 +175,10 @@ async def cancel_order(cancel_Order:cancelOrder):
 
 ####### Trading History & Information
 
+
 ##### Get all orders on account by type
-@router.get("/allOrders")
-async def binance_GetOrders(all_Orders:AllOrders):
+@router.get("/allorders")
+async def binance_GetOrders(all_Orders: AllOrders):
     """
     Endpoint to retrieve all orders for a specific symbol on Binance.
         Input:
@@ -160,8 +186,9 @@ async def binance_GetOrders(all_Orders:AllOrders):
     """
     return await Binance_get_orders(all_Orders.symbol)
 
+
 ##### Get all recent trades
-@router.get("/recentTrades")
+@router.get("/recenttrades")
 async def binance_recent_trades(request: RecentTradesRequest):
     """
     Endpoint to retrieve recent trade data for a symbol on Binance.
@@ -171,19 +198,21 @@ async def binance_recent_trades(request: RecentTradesRequest):
     """
     return await get_binance_recent_trades(request.symbol, request.limit)
 
+
 ####### User Data Stream
 ##### Start data stream
-@router.post("/startUserDataStream")
+@router.post("/startuserdatastream")
 async def binance_start_user_data_stream():
     """
     Endpoint to start a new user data stream.
-        Input: 
+        Input:
             - None
     """
     return await start_user_data_stream()
 
+
 ##### Keep the data stream alive
-@router.put("/keepUserDataStreamAlive")
+@router.put("/keepuserdatastreamalive")
 async def binance_keep_user_data_stream_alive(request: ListenKeyRequest):
     """
     Endpoint to keep the user data stream alive.
@@ -199,8 +228,9 @@ async def binance_keep_user_data_stream_alive(request: ListenKeyRequest):
 ######################################################  Useful Tools
 ######################################################
 
-##### One-Cancels-the-Other 
-@router.post("/ocoOrder")
+
+##### One-Cancels-the-Other
+@router.post("/ocoorder")
 async def binance_oco_order(order_data: OCOOrderRequest):
     """
     Endpoint to place an OCO (One Cancels Other) order on Binance.
@@ -216,8 +246,9 @@ async def binance_oco_order(order_data: OCOOrderRequest):
     """
     return await place_oco_order(order_data)
 
+
 ##### Get system Status
-@router.get("/serverTime")
+@router.get("/servertime")
 async def binance_system_status():
     """
     Endpoint to retrieve the current system status of the Binance API.
@@ -226,35 +257,37 @@ async def binance_system_status():
     """
     return await get_system_time()
 
+
 ######################################################  End of Useful Tools
 ######################################################
 
 
-
 ####################################################### Websocket functions
 
-async def listen_stream(symbol:str):
+
+async def listen_stream(symbol: str):
     symbol = symbol.lower()
     url = f"wss://testnet.binance.vision/ws/{symbol}@trade"
 
     async with websockets.connect(url) as ws:
         print("Connected to Binance User Data Stream.")
-        
+
         while not stop_event.is_set():
             message = await ws.recv()
             event = json.loads(message)
 
-            quantity = float(event['q'])
-            price = float(event['p'])
-            print("$" + str(quantity*price))
-            print("R" + str(quantity*price*18))
+            quantity = float(event["q"])
+            price = float(event["p"])
+            print("$" + str(quantity * price))
+            print("R" + str(quantity * price * 18))
             print("")
-            
+
             # You can add more processing here as needed
     print("websocket has stopped")
 
+
 @router.post("/startwebsocket")
-async def start_listening(symbol:SymbolType):
+async def start_listening(symbol: SymbolType):
     asyncio.create_task(listen_stream(symbol.symbol))
 
 
@@ -264,8 +297,3 @@ async def stop_listening():
     await asyncio.sleep(1)
     stop_event.clear()
     return {"status": "Stopped listening to WebSocket."}
-
-
-
-
-
