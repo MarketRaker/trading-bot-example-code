@@ -56,7 +56,7 @@ To set up and run the **MarketRaker Webhook Integration** backend, follow these 
   git clone https://github.com/MarketRaker/trading-bot-example-code
   ```
 2. **Set up the Python environment**  
-  Ensure you have **Python 3.x** installed. It is recommended to use a virtual environment for dependency management:
+  Ensure you have **Python 3.13** installed. It is recommended to use a virtual environment for dependency management:
   - Create a virtual environment:
     ```bash
     python -m venv venv
