@@ -1,6 +1,14 @@
 # trading-bot-example-code
 MarketRaker AI A modular cryptocurrency trading bot framework that demonstrates MarketRaker AI webhook integration and common trading operations. To be used as a template.  
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Disclaimer
+
+Please note that Matogen is are not responsible for any financial losses, damages, or liabilities arising from the use of this software, including but not limited to trading, investments, or market activities. Use at your own risk.
+
 # Table of Contents
 
 1. [MarketRaker Table of Contents](#marketraker-table-of-contents)
