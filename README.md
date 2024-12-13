@@ -55,16 +55,32 @@ To set up and run the **MarketRaker Webhook Integration** backend, follow these 
   ```bash
   git clone https://github.com/MarketRaker/trading-bot-example-code
   ```
-2. **Install dependancies***
-  execute the following command in the terminal:
+2. **Set up the Python environment**  
+  Ensure you have **Python 3.x** installed. It is recommended to use a virtual environment for dependency management:
+  - Create a virtual environment:
+    ```bash
+    python -m venv venv
+    ```
+  - Activate the virtual environment:
+    - On Windows:
+      ```bash
+      venv\Scripts\activate
+      ```
+    - On macOS/Linux:
+      ```bash
+      source venv/bin/activate
+      ```
+
+3. **Install dependancies**
+  Execute the following command in the terminal:
   ```bash
   pip install -r requirements.txt
   ```
-3. **Configure environmental variables (`.env`)**
+4. **Configure environmental variables (`.env`)**
   - **MarketRaker**: Enter your Application ID and Signing ID as well as your verification key (public key). Adding "new lines"(\n) in the string might be required to keep your verification key in a single line.
   - **Binance & Bybit**: Enter your API key and secret in the appropriate fields in the `.env` file. Also Choose whether to use the testnet service by changing the base url of each service.
 
-4. **Run the FastAPI Server**
+5. **Run the FastAPI Server**
   ```bash
   uvicorn app.main:app --reload --host 127.0.0.1 --port 5005
   ```
@@ -107,6 +123,10 @@ Ensure that you have the following tools installed on your system:
   - Forward the backend's port 5005 to your local machine's port 5005 (-p 5005:5005).
 
 Your FastAPI backend will now be accessible at http://localhost:5005.
+
+**Note:**  
+For testing, Postman can interact with your FastAPI server on localhost, but because localhost is not a public IP address, it cannot be registered as a webhook URL on the MarketRaker website. MarketRaker needs a publicly accessible endpoint to send indicators to your application.  
+To make your application accessible publicly, you would need to deploy it to a server with a public IP address (e.g., on a cloud service like AWS, Azure, or Heroku)
 
 
 ## Receiving Indicators
@@ -233,7 +253,7 @@ The **MarketRaker Test Trading Bot** works by connecting to Binance's API and us
 ### Key Features
 
 - **Momentum Strategy**: Executes trades based on a combination of market direction (Bull or Bear) and percentage change.
-- **Overbought/Oversold Strategy**: Places trades when the market is overbought or oversold, based on the percentage change in the last 24 hours.
+- **Overbought/Oversold Strategy**: Places trades when the market will be overbought or oversold, based on the predicted percentage change in 24 hours.
 - **Real-Time Monitoring**: After placing the trade, the bot uses WebSockets to monitor the trade and ensure it exits according to the defined conditions (e.g., stop loss or target price).
 - **Leverage & Stoploss Support**: Customizable leverage and stoploss values for each trade to manage risk.
 
@@ -249,13 +269,13 @@ The **Momentum Strategy** is designed to trade based on the market's momentum. I
 
 ### 2. Overbought/Oversold Strategy
 
-The **Overbought/Oversold Strategy** is based on identifying market conditions where a reversal is likely, either due to the market being overbought (when the price has increased rapidly) or oversold (when the price has decreased rapidly). This strategy uses the percentage change over the last 24 hours to identify these conditions and take action accordingly.
+The **Overbought/Oversold Strategy** is based on identifying market conditions where a reversal is likely, either due to the market being overbought (when the price has increased rapidly) or oversold (when the price has decreased rapidly). This strategy uses the predicted percentage change of the comming 24 hours to identify these conditions and take action accordingly.
 
 #### How It Works:
 
-- **Bull Market + Overbought**: If the market is bullish and the percentage change over the last 24 hours exceeds a certain threshold (e.g., > 5%), it indicates that the market might be overbought. In this case, the bot will **SELL** (Short) to capitalize on a potential price reversal.
+- **Bull Market + Overbought**: If the market is bullish and the predicted percentage change to come exceeds a certain threshold (e.g., > 5%), it indicates that the market might be overbought. In this case, the bot will **SELL** (Short) to capitalize on a potential price reversal.
   
-- **Bear Market + Oversold**: If the market is bearish and the percentage change over the last 24 hours is below a certain threshold (e.g., < -5%), it indicates that the market might be oversold. In this case, the bot will **BUY** (Long) to take advantage of a potential price reversal.
+- **Bear Market + Oversold**: If the market is bearish and the predicted percentage change to come is below a certain threshold (e.g., < -5%), it indicates that the market might be oversold. In this case, the bot will **BUY** (Long) to take advantage of a potential price reversal.
 
 The bot then places the order (BUY or SELL) and monitors it via WebSocket, tracking the stoploss and exit conditions.
 

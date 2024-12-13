@@ -10,8 +10,6 @@ from fastapi import Request, HTTPException
 from app.utils.TradingBot import *
 
 
-SIGNING_KEY = str(config("SIGNING_KEY"))
-APPLICATION_ID = str(config("APPLICATION_ID"))
 PUBLIC_KEY_STR = str(config("PUBLIC_KEY_STR"))
 PUBLIC_KEY_STR = PUBLIC_KEY_STR.replace("\\n", "\n")
 
@@ -152,23 +150,23 @@ async def notification_type_indicator(request: Request):
 
         # call all the trading strategies that the bot should implement.
         await asyncio.gather(
-            momentum_strategy(
-                binance_prepared_trading_pair,
-                payload_dict["market_direction"],
-                payload_dict["percentage_change"],
-                payload_dict["leverage"],
-                payload_dict["buy_price"],
-                payload_dict["stoploss"],
-                payload_dict["trading_type"],
-            ),
-            overbought_oversold_strategy(
-                binance_prepared_trading_pair,
-                payload_dict["market_direction"],
-                payload_dict["percentage_change_24h"],
-                payload_dict["leverage"],
-                payload_dict["stoploss"],
-                payload_dict["trading_type"],
-            ),
+            # momentum_strategy(
+            #     binance_prepared_trading_pair,
+            #     payload_dict["market_direction"],
+            #     payload_dict["percentage_change"],
+            #     payload_dict["leverage"],
+            #     payload_dict["buy_price"],
+            #     payload_dict["stoploss"],
+            #     payload_dict["trading_type"],
+            # ),
+            # overbought_oversold_strategy(
+            #     binance_prepared_trading_pair,
+            #     payload_dict["market_direction"],
+            #     payload_dict["percentage_change_24h"],
+            #     payload_dict["leverage"],
+            #     payload_dict["stoploss"],
+            #     payload_dict["trading_type"],
+            # ),
         )
 
         return

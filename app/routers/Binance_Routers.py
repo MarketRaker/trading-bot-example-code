@@ -8,9 +8,7 @@ import websockets
 router = APIRouter()
 stop_event = asyncio.Event()
 
-"""
-check file docstrings
-"""
+
 ####################################################### Account Management
 #######################################################
 

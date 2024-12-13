@@ -14,15 +14,12 @@ async def momentum_strategy(
     """
     Executes a momentum trading strategy based on market direction and percentage change.
 
-    This strategy determines whether to enter a trade (BUY or SELL) based on the market direction
-    (Bull or Bear), the percentage change, and the trading type (Long or Short). If the conditions
-    are met, it places an order and monitors the trade via a WebSocket connection to track exit conditions
-    (such as stoploss or target price).
+    See README for more infomation about this strategy.
 
     Args:
         trading_pair (str): The trading pair for the order (e.g., 'BTCUSDT').
         market_direction (str): The market direction, either 'Bull' or 'Bear'.
-        percentage_change (float): The percentage change in the market to trigger the trade.
+        percentage_change (float): The predicted percentage change in the market to trigger the trade.
         leverage (int): The leverage to be used in the trade.
         buy_price (float): The price at which the order should be executed.
         stoploss (float): The stoploss price to limit potential losses.
@@ -95,16 +92,13 @@ async def overbought_oversold_strategy(
     """
     Executes a trading strategy based on overbought or oversold market conditions.
 
-    This strategy identifies whether the market is overbought or oversold based on the
-    percentage change over the last 24 hours. If the market conditions meet the thresholds for
-    a reversal, it places a trade (BUY or SELL). The trade is then monitored via a WebSocket
-    connection to track exit conditions (e.g., stoploss or target price).
+    See README for more infomation about this strategy.
 
     Args:
         trading_pair (str): The trading pair for the order (e.g., 'BTCUSDT').
         market_direction (str): The market direction, either 'Bull' or 'Bear'.
-        percentage_change_24h (float): The percentage change in the last 24 hours to identify
-                                       overbought or oversold conditions.
+        percentage_change_24h (float): The predicted percentage change to come in the next 24 hours   
+                                        to identify overbought or oversold conditions.
         leverage (int): The leverage to be used in the trade.
         stoploss (float): The stoploss price to limit potential losses.
         trading_type (str): The type of trade, either 'Long' or 'Short'.
