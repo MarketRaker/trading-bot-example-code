@@ -116,17 +116,17 @@ async def overbought_oversold_strategy(
     try:
         # Determine the trade side based on market direction and trading type
         if trading_type == "Long":
-            # If market is bullish and there's a significant percentage change in the last 24 hours (overbought condition)
+            # If market is bullish and there's a significant predicted percentage change to come (overbought condition)
             if market_direction == "Bull" and percentage_change_24h > 5:
-                side = "SELL"  # Enter a short position (SELL) to capitalize on reversal
+                side = "BUY"  # Enter a Long position (BUY) to capitalize on the comming market growth
             else:
                 print("Long trade conditions not met. No trade executed.")
                 return
 
         elif trading_type == "Short":
-            # If market is bearish and there's a significant percentage change in the last 24 hours (oversold condition)
+            # If market is bearish and there's a significant predicted percentage change to come (oversold condition)
             if market_direction == "Bear" and percentage_change_24h < -5:
-                side = "BUY"  # Enter a long position (BUY) to capitalize on reversal
+                side = "SELL"  # Enter a Short position (SELL) to capitalize on the comming market depression
             else:
                 print("Short trade conditions not met. No trade executed.")
                 return

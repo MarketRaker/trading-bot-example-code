@@ -9,7 +9,7 @@ from decouple import config
 from fastapi import Request, HTTPException
 from app.utils.TradingBot import *
 
-
+# If an error is received about loading the PUBLIC_KEY_STR, Paste the PUBLIC_KEY_STR directly into the MarketRaker_Functions.py file.
 PUBLIC_KEY_STR = str(config("PUBLIC_KEY_STR"))
 PUBLIC_KEY_STR = PUBLIC_KEY_STR.replace("\\n", "\n")
 
