@@ -1,0 +1,317 @@
+{
+	"info": {
+		"_postman_id": "dff580ca-a854-498c-a0e9-877d7afc9164",
+		"name": "MarketRaker_Example_Indicators",
+		"description": "- **Successful Indicator**\n    \n    - **Objective:** Test a payload reflecting a successful indicator scenario.\n        \n    - The Attributes of this indicator will change based on the scenarios below.\n        \n- **Risk Level 8 Indicator**\n    \n    - **Objective:** Validate behavior for a high-risk scenario.\n        \n    - **Key Attributes:**\n        \n        - Risk: `8`\n            \n- **Percentage Change 10**\n    \n    - **Objective:** Simulate a scenario with a high percentage change.\n        \n    - **Key Attributes:**\n        \n        - Percentage Change: `10%`\n            \n        - Percentage Change 24h: `-4%`\n            \n- **Sell Price 3000**\n    \n    - **Objective:** Test a payload with an unusually high sell price.\n        \n    - **Key Attributes:**\n        \n        - Sell Price: `3000`\n            \n- **Trading Type: Short**\n    \n    - **Objective:** Confirm correct handling for a \"Short\" trading type.\n        \n    - **Key Attributes:**\n        \n        - Trading Type: `Short`\n            \n- **Trading Pair: BTC_USD**\n    \n    - **Objective:** Test functionality with an alternative trading pair.\n        \n    - **Key Attributes:**\n        \n        - Trading Pair: `BTC_USD`\n            \n- **Leverage 1**\n    \n    - **Objective:** Ensure payload consistency with minimum leverage.\n        \n    - **Key Attributes:**\n        \n        - Leverage: `1`\n            \n- **Market Direction: Bear**\n    \n    - **Objective:** Validate the payload under bearish market conditions.\n        \n    - **Key Attributes:**\n        \n        - Market Direction: `Bear`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40249340"
+	},
+	"item": [
+		{
+			"name": "Successful indicator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "fPrT7jUJL+V3XMeCzbSkwOPNAbZ2TXIjqCq3w1gi99reqjHorM6yBWCaGicw+fsyB9SEJN7lDPM/b3H2FYnaOmxZnF9vtpYNmNMXfqMzNwAxrxajbYkWWAvGEHYojFz5ZXrdC0WHnjOrnhjUzht3s2ibXpAdxz7TXBic7sczTMdScdl2p8o21K3+ONb9SFQawRfJJmkKIh57+9lQM0+Ppl3sPyKZJ1rvRHalrQgIOOFvCKYUnV7n8Q0USNaKYpNeOqpToIW3BG7Wz8Akw/eemb/09Ibr5ZtEB+x1YwjwlxOpc0z8rxbySZj3G5KNyU6Tj2xYg7RP5fIf+pPjSGMj1A==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Risk 8",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "rMve7KfMIg0j6Fg955av6xURKE9FTuVswf3WT0vDw2PIKwgugjwwK1KOVdcrn1uefPfJgaIAgUTg/YWrf8Ad3zaTPa6vrwSuwUOicoQ4Tp6OHrcRWn5mpzIvwCVEhFTPmHcSaENqUZS8nMqztx+2/5SYTJwbKoK6dFWZcRQlhsKhbILbov4qQHPHTtlam3EimSTRbTAsuvQ79zuEk6mdbU/HoNrx6X1nyGwZVAtwmyWqN5BNhK41ZBaDIB1bq62Ow8TL+NbIq1fAN9/G547ESUTuR/5KR2yYo36AgWMoagMpvtOtfpzuvk5OWeXmsO1+DtLmfMNjyuRWFeiLkS0/aw==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 8,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Percentage Change 10 & -5.5 24h",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "hdTx9zTSDvoYUsUKKsrXvpqiSop7a5YAhL46iEFng0pLpBxqqVuU99lHDuUGUUxhewpuctLHID6kjb2047yZTU1GjuqqkRojfHzacXzKo+HItJQcjMadYMf6dW1xKbp8gTzmrr/sYXDnOCHLBFcFNEtWZcthC8FKqcc6OZ7a8puX8WE7D/iByteDShzyfxS1cV7yBpxyqyz/q3cG9VWMKW4E3XjtDy1RgJOOeGOUGGhvCLZMe+n7qrkQQznOsi0dCBS9lZ8cpNCfDtJErb5U96LjEo8HHycb0gh65avqEnRqZkYWlJeGNGbLujAnI/iq8Volfh2OfuJrdwPkn9AcBg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 10.0,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -5.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sell Price 235",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "SM308/YLVdAmH0an49Bs35RM27adGkr8I2NrY9d7sMkvmOseLnlQmBM4a7sUXC5L9MsBK2z/k+2X8CjFKegGc1D1v5hnHL2DPtOWFGTDyY9VFaESIyGTM6F26SDphSwdTxHhDXRmgBo9ZVtYQYoVyGwCsfc+NgS0peAocatpwNeXRCl05X+AyN7SkG8GwY6G1kBlRFAQ5EA2GFcKzwTY8h7Cg3LrqdSbqCp3dq7etd4waMGJ77W4UdG84Xi00U45C21GNoq+9CR9mDOXfe3aVd5qXDT0sts62YncOdywTfQ6pJjCw1KkAX1REGRzmYDYn75Qab0Zc9x5K9JJ4l15iA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 235.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trading Type Short",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "qHNGoTF76BoQSctYtC2ZM3HvQq4fDdYhu1d8a2P4A96MONY2MLAgIoETRGwmlm3n6qk6g4KU3L1cYdEypazxl20uXngeqRvg/w5PpIGSKypYXwZOfQrHQZN2RVhpMLpdDy+J7HQRp2orDASIiBiC89Ry3Z2sGGrszjOwO3hdsiAw4dOikjOhnI9BPnBSLVJhFwR01ApTJ9XqRJjn+7qZxsodOnzPE+VZBLp1yUqsv0y+TfrK64VWPqUz2CDNB0UVGmHmM7sp/2UwbetX0mcMR7EJZ3y5ctgpqwpY8viru2e39AxuLcUeYa6eyptITC/DUOkfRZKr82pN1VZx757p9w==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Short\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trading Pair BTC_USD",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "rdx3C7QqYx2LlGWz6XsiGdqcurtNebAlI5b8CY3GBVuFc4XBcK5ysJFEXPHliE/2dFFenYqEhB+vYmNKd+QC1VMytzPOI5jg352sa3TJ2uLiXyW2/v/Z7L1Y0DDn4VB3xKfyyJuE5mE5D7W6IZCc7M6AqU3NdAFd67z8Ugye30XiHmWfMYbrIcwSmfO3Vaa79jlqMQDcHI4u2WzldAHWp1ybaowvS+nKVRQ2uWKC8wERcd1+UXZhgGyFo4SFZHBocSbbxGh/5xITG053QyWTlPjwohyM52AXNgPrajEo15myxh+H29Jo4/RYxM6lbJrhdH/uP5z4+qMMJG9VpCoQ9w==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"BTC/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leverage 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "kj4h8wGnROrOZgDy6y9me5T6T1E+pFl8qUFbJQmsuNs2VnVFWp7kr9LKNTNrk2VN5LNiCvwx3iao3bG7aM7TQnoPcbSXcSmblTNY3gQpGzLK+3VJGzUgLi1joZPlH6EzTR2VhWMp6thqT3CGo7MXTvByhwPdP6nGmEJtu0X7gM+rsdfgiNKRkSayv4W5uy3N+zyNUFylY0detl1Y9xHhbmBT55tVXFQVD/3XSMQNm8c+x4NggpVCqPArzGwA3Wd/L4Za2FLuRj+X+8AKs1nt3hLvfsxyaUoQTTTYJXL/mhE5Hgz6RpGHVfIMYxXJvo1JMjLiYIf2tP6LGqngAZeqkQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 3,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Market Direction Bear",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "fJFAqOmrgPw5Jd/KmhxTv4TvrwtWUT4sX9xi2O+4voSSw2BK5Yo3c0lHoSPE4noJyRcNYm6robugceXN1hNP2pYLtmmnOZDG/ssnh6Q7hVOnaqEwNTNzcQE55u4hvH2eGEaBH1mOA585r29XfoFojQ8Rf9TgST52UZ5OJJs2vL2EdWx0jmbfUBdhejKoGwyK4O/hApn/djqUjyxpOMZRFIY550C0Asd83ZIKvijL6gZAR0y+JonRH6N57WugSw0GpK9h+ReUxjIebH74xvXLpBpp7voZF+159ezhuJaAtvRSuOP6XBV1wnUjD1N2Smrg6LiAsOFLPX4Pj2tcsesLgA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bear\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Indicator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-signature",
+						"value": "EW/umgK+SLFCVO1Ada8CKoIHCUsd+pftD0Fpkj0uYjLVc5+krNV1E187QixsJwrKYyWddWOJ6PpvCb6ImoMm7+XYvES6WXFtSW6gOKJLrWus2jYxU+5ncIiJxcjZ6b/3UBYLQK/OJUIQAnUW6kRvMyJaSY+pQXVzAVePeeLPy5ZH8Gwe2x40cAuWYPwfDWo+hUGrwTMimLBn/JbYCegfEUXSfD12QbRUNY+ElEQdjgTnWC5DEBteW33Kgs9vZjQo+cXYw7Z8paxPyRTm0H/QmOGJEff9Wnbpqemix3VcsBGh+ibNNL3BI619MVB09SFe8Uw9Xw1p0iVEsQ/tKSQZ5g==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"indicator\",\r\n    \"data\": {\r\n        \"trading_type\": \"Long\",\r\n        \"leverage\": 1,\r\n        \"buy_price\": 205.0,\r\n        \"sell_price\": 215.0,\r\n        \"buy_date\": 1733913000,\r\n        \"sell_prediction_date\": 1733999400,\r\n        \"risk\": 4,\r\n        \"market_direction\": \"Bull\",\r\n        \"percentage_change\": 5.1,\r\n        \"stoploss\": 200,\r\n        \"trading_type_24h\": null,\r\n        \"percentage_change_24h\": -1.5,\r\n        \"risk_24h\": 5,\r\n        \"leverage_24h\": 2,\r\n        \"stoploss_24h\": 190,\r\n        \"trading_pair\": \"SOL/USD\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5005/marketraker/notification",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"marketraker",
+						"notification"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
